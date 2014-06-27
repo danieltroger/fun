@@ -52,6 +52,7 @@ int main(int argc, char *argv[])
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
     curl_easy_setopt(curl, CURLOPT_USERAGENT, "curl"); 
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, outf) ;
+    curl_easy_setopt(curl, CURLOPT_VERBOSE, 1); 
     res = curl_easy_perform(curl);
     if(res != CURLE_OK)
     {
