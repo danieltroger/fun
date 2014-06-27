@@ -22,6 +22,7 @@
 #include <stdio.h>
 #include <curl/curl.h>
 #include <libgen.h>
+#include <stdlib.h>
 
 int prog(void *clientp, double dltotal,   double dlnow,   double ultotal,   double ulnow)
 {
@@ -58,7 +59,7 @@ int main(int argc, char *argv[])
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
     curl_easy_setopt(curl, CURLOPT_USERAGENT, "curl");
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, outf) ;
-    //curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
+    curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
     curl_easy_setopt(curl, CURLOPT_PROGRESSFUNCTION, prog);
     res = curl_easy_perform(curl);
     if(res != CURLE_OK)
