@@ -23,6 +23,12 @@
 #include <curl/curl.h>
 #include <libgen.h>
 
+int prog(void *clientp, double dltotal,   double dlnow,   double ultotal,   double ulnow)
+{
+  printf("dltotal: %f, dlnow: %f\n",dltotal,dlnow);
+  return 1;
+}
+
 int main(int argc, char *argv[])
 {
   if(argv[1] == NULL)
@@ -50,9 +56,10 @@ int main(int argc, char *argv[])
   if(curl) {
     curl_easy_setopt(curl, CURLOPT_URL, argv[1]);
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-    curl_easy_setopt(curl, CURLOPT_USERAGENT, "curl"); 
+    curl_easy_setopt(curl, CURLOPT_USERAGENT, "curl");
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, outf) ;
-    curl_easy_setopt(curl, CURLOPT_VERBOSE, 1); 
+    //curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
+    curl_easy_setopt(curl, CURLOPT_PROGRESSFUNCTION, prog);
     res = curl_easy_perform(curl);
     if(res != CURLE_OK)
     {
@@ -65,4 +72,3 @@ int main(int argc, char *argv[])
   }
   return 0;
 }
-
